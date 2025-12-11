@@ -122,3 +122,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Tailwind Files 
 TAILWIND_APP_NAME = 'theme'
+
+# Media URL
+MEDIA_URL = '/media/'
+MEDIA_ROOT = [os.path.join(BASE_DIR, 'media')]
+
