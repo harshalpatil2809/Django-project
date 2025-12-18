@@ -1,0 +1,45 @@
+{% extends "Layout.html" %} 
+
+{% block content %} 
+    <div class="flex gap-5 flex-wrap mt-4">
+        {% for tweet in tweets %}
+            <div
+        class="w-80  bg-indigo-600 rounded-2xl shadow-xl p-6 text-white flex flex-col gap-5"
+        >
+        <!-- Image -->
+        <div class="flex justify-center">
+            <img
+            src="{{ tweet.photo.url}}"
+            alt="Profile"
+            class="w-full h-[200px]  object-cover border-4 border-white/30"
+            />
+        </div>
+
+        <!-- Text -->
+        <div class="text-center mt-4">
+            <p class="text-indigo-200 text-sm mt-1">
+            Fitness enthusiast focused on strength, endurance, and healthy living.
+            </p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-4 mt-6">
+            <button
+            class="flex-1 bg-white text-indigo-600 py-2 rounded-xl font-semibold hover:bg-indigo-100 transition"
+            >
+            Profile
+            </button>
+
+            <button
+            class="flex-1 bg-indigo-500 border border-white/30 py-2 rounded-xl font-semibold hover:bg-indigo-400 transition"
+            >
+            Message
+            </button>
+        </div>
+        </div>
+    {% endfor %} 
+</div>
+
+
+
+{% endblock %}

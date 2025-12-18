@@ -1,0 +1,32 @@
+{% extends "Layout.html" %}
+
+
+{% block content %}
+
+<form method="POST" class="max-w-md mx-auto mt-10 bg-gray-700 p-6 rounded-xl shadow">
+    {% csrf_token %}
+
+    <div class="mb-4 flex gap-3">
+        <label class="block text-sm font-medium text-white-700">
+            {{ form.text.label }}
+        </label>
+        {{form.text }}
+    </div>
+
+    <div class="mb-4 flex gap-3">
+        <label class="block text-sm font-medium text-white-700">
+            {{ form.photo.label }}
+        </label>
+        {{ form.photo }}
+    </div>
+
+    
+
+    <button type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+        Create Account
+    </button>
+</form>
+
+
+{% endblock %}
