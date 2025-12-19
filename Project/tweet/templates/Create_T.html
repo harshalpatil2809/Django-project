@@ -2,10 +2,11 @@
 
 
 {% block content %}
-
-<form method="POST" class="max-w-md mx-auto mt-10 bg-gray-700 p-6 rounded-xl shadow">
+<h1 class='text-center text-white text-5xl my-5 font-[ui-serif]'>Create a Tweet</h1>
+<form method="POST" class="flex flex-col gap-7 max-w-md mx-auto mt-5 bg-gray-700 p-6 rounded-xl shadow" enctype="multipart/form-data">
     {% csrf_token %}
-
+    
+    
     <div class="mb-4 flex gap-3">
         <label class="block text-sm font-medium text-white-700">
             {{ form.text.label }}
@@ -20,11 +21,11 @@
         {{ form.photo }}
     </div>
 
-    
+
 
     <button type="submit"
         class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-        Create Account
+        Add Tweet
     </button>
 </form>
 

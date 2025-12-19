@@ -19,12 +19,45 @@ def CreateTweet(request):
     if request.method == 'POST':
         form = TweetForm(request.POST, request.FILES)
         if form.is_valid():
-            tweets = form.save(commit=False)
-            tweets.user = request.user
-            tweets.save()
-            return redirect('Showtweet')
+            tweet = form.save(commit=False)
+            tweet.user = request.user
+            tweet.save()
+            return redirect('showtweet')
+        else:
+            print(form.errors)
     else:
         form = TweetForm()
 
     return render(request, 'Create_T.html', {'form': form})
 
+
+# To Edit the tweet
+
+def EditTweet(request, tweet_id):
+    tweet = get_object_or_404(Tweet, pk=tweet_id, user = request.user)
+    if request.method == 'POST':
+        form = TweetForm(request.POST, request.FILES, instance=tweet)
+        if form.is_valid():
+            tweet = form.save(commit=False)
+            tweet.user = request.user
+            tweet.save()
+            return redirect('showtweet')
+        else:
+            print(form.errors)
+    else:
+        form = TweetForm(instance=tweet)
+
+    return render(request, 'Create_T.html', {'form': form})
+
+
+
+def DeleteTweet(request, tweet_id):
+    tweet = get_object_or_404(Tweet, pk=tweet_id, user = request.user)
+    if request.method == 'POST':
+        form = TweetForm(request.POST, request.FILES, instance=tweet)
+        tweet.delete()
+        return redirect('showtweet')
+    else:
+        form = TweetForm(instance=tweet)
+
+    return render(request, 'Delete_T.html', {'form': form})

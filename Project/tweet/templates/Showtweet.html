@@ -1,7 +1,7 @@
 {% extends "Layout.html" %} 
 
 {% block content %} 
-    <div class="flex gap-5 flex-wrap mt-4">
+    <div class="flex gap-5 flex-wrap mt-4 ">
         {% for tweet in tweets %}
             <div
         class="w-80  bg-indigo-600 rounded-2xl shadow-xl p-6 text-white flex flex-col gap-5"
@@ -18,23 +18,24 @@
         <!-- Text -->
         <div class="text-center mt-4">
             <p class="text-indigo-200 text-sm mt-1">
-            Fitness enthusiast focused on strength, endurance, and healthy living.
+            {{ tweet.text }}
             </p>
         </div>
 
         <!-- Buttons -->
         <div class="flex gap-4 mt-6">
-            <button
-            class="flex-1 bg-white text-indigo-600 py-2 rounded-xl font-semibold hover:bg-indigo-100 transition"
-            >
-            Profile
-            </button>
+            <a href="{% url "Create_T" tweet.id %} " class="flex-1 text-center bg-white text-indigo-600 py-2 rounded-xl font-semibold hover:bg-indigo-100 transition">
+                <button>
+                    Edit
+                </button>
+            </a>
 
-            <button
-            class="flex-1 bg-indigo-500 border border-white/30 py-2 rounded-xl font-semibold hover:bg-indigo-400 transition"
-            >
-            Message
-            </button>
+            <a href="{% url "Delete_T" %}" class="flex-1 bg-red-500 border border-white/30 py-2 rounded-xl font-semibold text-center hover:bg-indigo-400 transition">
+                    <button>
+                        Delete
+                    </button>
+            </a>
+            
         </div>
         </div>
     {% endfor %} 
