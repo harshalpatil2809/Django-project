@@ -16,12 +16,21 @@
         </div>
 
         <!-- Text -->
+        {% if tweet.text|length > 30 %}
         <div class="text-center mt-4">
             <p class="text-indigo-200 text-sm mt-1">
-            {{ tweet.text }}
+            {{ tweet.text|slice:":30" }}...
             </p>
         </div>
 
+        
+        {% else %}
+            <div class="text-center mt-4">
+            <p class="text-indigo-200 text-sm mt-1">
+            {{ tweet.text }}
+            </p>
+            </div>
+        {% endif %}
         <!-- Buttons -->
         <div class="flex gap-4 mt-6">
             <a href="{% url "Edit_T" tweet.id %}"  class="flex-1 text-center bg-white text-indigo-600 py-2 rounded-xl font-semibold hover:bg-indigo-100 transition">
@@ -37,6 +46,11 @@
             </a>
             
         </div>
+        {% if tweet.text|length > 30 %}
+        <a href="{% url "Full_T" tweet.id%}" class="flex-1 text-center border-black border-2 text-white-600 py-2 rounded-xl font-semibold hover:bg-indigo-100 hover:text-black transition">
+            <button type="submit">See Full Tweet</button>
+        </a>
+        {% endif %}
         </div>
     {% endfor %} 
 </div>
