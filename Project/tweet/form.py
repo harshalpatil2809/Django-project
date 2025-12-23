@@ -1,5 +1,7 @@
 from django import forms
 from .models import Tweet
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class TweetForm(forms.ModelForm):
     class Meta:
@@ -7,17 +9,9 @@ class TweetForm(forms.ModelForm):
         fields = ['text', 'photo']
 
 
-
-# class SignupForm(forms.Form):
-#     username = forms.CharField(
-#         max_length=100,
-#         label="Username"
-#     )
-#     email = forms.EmailField(
-#         max_length=150,
-#         label="Email"
-#     )
-#     password = forms.CharField(
-#         max_length=30,
-#         label="password"
-#     )
+class RegistrationForm(UserCreationForm):
+    email = forms.EmailField()
+    image = forms.ImageField()
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'image', 'password1', 'password2')

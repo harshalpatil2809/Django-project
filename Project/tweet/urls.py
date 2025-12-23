@@ -8,5 +8,6 @@ urlpatterns = [
     path('create/', views.CreateTweet, name='Create_T'),
     path('<int:tweet_id>/edit/', views.EditTweet, name='Edit_T'),
     path('<int:tweet_id>/delete/', views.DeleteTweet, name='Delete_T'),
-    path('<int:tweet_id>/fulltweet/', views.FullTweet, name='Full_T')
+    path('<int:tweet_id>/fulltweet/', views.FullTweet, name='Full_T'),
+    path('register/', views.Registration, name='register')
 ] 

@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from .form import TweetForm
+from .form import TweetForm, RegistrationForm
 from .models import Tweet
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+
 
 # Create your views here.
 def tweet(request):
@@ -66,3 +68,19 @@ def DeleteTweet(request, tweet_id):
         form = TweetForm(instance=tweet)
 
     return render(request, 'Delete_T.html', {'form': form})
+
+
+
+def Registration(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password1'])
+            user.save()
+            login(request, user)
+            return redirect('showtweet')
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'registraion/register.html', {'form': form})
