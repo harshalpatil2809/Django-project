@@ -9,9 +9,13 @@ class TweetForm(forms.ModelForm):
         fields = ['text', 'photo']
 
 
-class RegistrationForm(UserCreationForm):
+class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
-    image = forms.ImageField()
+    
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+    
     class Meta:
         model = User
-        fields = ('username', 'email', 'image', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2')

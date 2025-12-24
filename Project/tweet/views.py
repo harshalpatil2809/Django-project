@@ -1,7 +1,6 @@
-from django.shortcuts import render
-from .form import TweetForm, RegistrationForm
+from .form import TweetForm, UserRegistrationForm
 from .models import Tweet
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 
@@ -71,9 +70,9 @@ def DeleteTweet(request, tweet_id):
 
 
 
-def Registration(request):
+def UserRegistration(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = UserRegistrationForm(request.POST, request=request)
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
@@ -81,6 +80,11 @@ def Registration(request):
             login(request, user)
             return redirect('showtweet')
     else:
-        form = RegistrationForm()
+        form = UserRegistrationForm()
 
-    return render(request, 'registraion/register.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
+
+
+
+def Login(request):
+    return render(request, "registration/login.html")
