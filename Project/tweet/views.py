@@ -1,5 +1,5 @@
 from .form import TweetForm, UserRegistrationForm
-from .models import Tweet
+from .models import Tweet, UserProfile
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
@@ -7,7 +7,7 @@ from django.contrib.auth import login
 
 # Create your views here.
 def tweet(request):
-    return render(request, 'tweet.html')
+    return render(request, 'Layout.html')
 
 # To Show the all tweeets
 def Showtweet(request):
@@ -72,11 +72,16 @@ def DeleteTweet(request, tweet_id):
 
 def UserRegistration(request):
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST, request=request)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
             user.save()
+            
+            # Create user profile with image
+            image = request.FILES.get('image')
+            UserProfile.objects.create(user=user, image=image)
+            
             login(request, user)
             return redirect('showtweet')
     else:

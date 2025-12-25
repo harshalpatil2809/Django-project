@@ -1,12 +1,129 @@
-registration{% extends "Layout.html" %}
+{% extends "Layout.html" %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign up</button>
-    </form>
+<div class="flex items-center justify-center min-h-screen bg-black py-12">
+    <div class="bg-gray-800 rounded-2xl shadow-2xl p-8 w-full max-w-md">
+        <h1 class="text-4xl font-bold text-center text-white mb-8">Create Account</h1>
+        
+        <form method="post" enctype="multipart/form-data" class="space-y-5">
+            {% csrf_token %}
+            
+            <!-- Username Field -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-200 mb-2">
+                    {{ form.username.label }}
+                </label>
+                {% if form.username.errors %}
+                    {{ form.username }}
+                    <span class="text-red-500 text-sm">{{ form.username.errors }}</span>
+                {% else %}
+                    {{ form.username }}
+                {% endif %}
+            </div>
 
-        <p>have a account ? <a href="{% url "login" %}">SignUp</a></p>
+            <!-- Email Field -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-200 mb-2">
+                    {{ form.email.label }}
+                </label>
+                {% if form.email.errors %}
+                    {{ form.email }}
+                    <span class="text-red-500 text-sm">{{ form.email.errors }}</span>
+                {% else %}
+                    {{ form.email }}
+                {% endif %}
+            </div>
+
+            <!-- Profile Image Field -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-200 mb-2">
+                    Profile Picture
+                </label>
+                {% if form.image.errors %}
+                    {{ form.image }}
+                    <span class="text-red-500 text-sm">{{ form.image.errors }}</span>
+                {% else %}
+                    {{ form.image }}
+                {% endif %}
+                <p class="text-gray-400 text-xs mt-1">Optional - Upload a profile picture</p>
+            </div>
+
+            <!-- Password1 Field -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-200 mb-2">
+                    {{ form.password1.label }}
+                </label>
+                {% if form.password1.errors %}
+                    {{ form.password1 }}
+                    <span class="text-red-500 text-sm">{{ form.password1.errors }}</span>
+                {% else %}
+                    {{ form.password1 }}
+                {% endif %}
+            </div>
+
+            <!-- Password2 Field -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-200 mb-2">
+                    {{ form.password2.label }}
+                </label>
+                {% if form.password2.errors %}
+                    {{ form.password2 }}
+                    <span class="text-red-500 text-sm">{{ form.password2.errors }}</span>
+                {% else %}
+                    {{ form.password2 }}
+                {% endif %}
+            </div>
+
+            <!-- Non-field Errors -->
+            {% if form.non_field_errors %}
+                <div class="bg-red-500 bg-opacity-20 border border-red-500 rounded-lg p-3">
+                    {% for error in form.non_field_errors %}
+                        <p class="text-red-400 text-sm">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition duration-200 mt-6">
+                Sign Up
+            </button>
+        </form>
+
+        <!-- Login Link -->
+        <p class="text-center text-gray-300 mt-6">
+            Already have an account? 
+            <a href="{% url "login" %}" class="text-indigo-400 hover:text-indigo-300 font-semibold">Sign In</a>
+        </p>
+    </div>
+</div>
+
+<style>
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="file"],
+    select,
+    textarea {
+        @apply w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition;
+    }
+    
+    input[type="file"] {
+        @apply file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700;
+    }
+    
+    input[type="checkbox"] {
+        @apply w-4 h-4 accent-indigo-600;
+    }
+
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .errorlist li {
+        @apply text-red-400 text-sm;
+    }
+</style>
 
 {% endblock %}
