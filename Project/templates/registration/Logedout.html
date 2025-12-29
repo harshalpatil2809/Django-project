@@ -1,0 +1,24 @@
+{% extends "Layout.html" %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-black py-12">
+    <div class="bg-gray-800 rounded-2xl shadow-2xl p-8 w-full max-w-md">
+        <h1 class="text-3xl font-bold text-center text-white mb-8">Confirm Logout</h1>
+        
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+            
+            <p class="text-gray-300 text-center mb-6">Are you sure you want to log out?</p>
+            
+            <div class="flex gap-4">
+                <button type="submit" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition duration-200">
+                    Yes, Logout
+                </button>
+                <a href="{% url "showtweet" %}" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition duration-200 text-center flex items-center justify-center">
+                    Back
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
