@@ -3,7 +3,7 @@ services:
     name: django-app
     env: python
     buildCommand: pip install -r requirements.txt && python Project/manage.py collectstatic --noinput && python Project/manage.py migrate
-    startCommand: gunicorn Project.wsgi:application --chdir Project
+    startCommand: sh -c 'cd Project && gunicorn Project.wsgi:application'
     envVars:
       - key: DEBUG
         value: false
