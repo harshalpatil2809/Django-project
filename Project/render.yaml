@@ -2,5 +2,10 @@ services:
   - type: web
     name: django-app
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn projectname.wsgi:application
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
+    startCommand: gunicorn Project.wsgi:application
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "django-project-q0rp.onrender.com,localhost,127.0.0.1"
